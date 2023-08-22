@@ -1,0 +1,96 @@
+@charset "UTF-8";
+*{margin: 0; padding: 0;}
+
+.visitwrap{
+	width:  500px;
+	margin: 0 auto;
+}
+
+.visit_Top{
+	display: flex;		/* 하위 요소들의 가로배치 */
+	margin: 30px 0px;
+}
+
+.visit_Input input{
+	width: 100px;
+	padding: 5px;
+	border: 1px solid #e8e8e8;
+}
+
+.visit_Top textarea{
+	width: 100%;
+	padding: 5px;
+	border: 1px solid #e8e8e8;
+	resize: none;	/* textarea 사이즈 변경불가 */
+	margin-left: 10px;
+}
+
+.visit_Top button{
+	width: 80px;
+	background-color: black;
+	color: white;
+	border: none;
+	font-weight: bold;
+}
+
+/* --------------- 출력구역 --------------- */
+.visit_Bottom{
+	margin: 30px 0px;
+}
+
+.visitbox{
+	display: flex;
+	border-top: 1px solid #e8e8e8;
+	padding-top: 10px; 
+	margin-top: 20px;
+}
+
+.visitdate{
+	font-size: 9px;
+}
+
+/* 상단 */
+.visitbox_top{
+	width: 20%;
+}
+/* 내용 */
+.visitbox_center{
+	width: 60%;
+	margin: 0px 10px;
+}
+
+/* 버튼 구역 */
+.visitbox_bottom{
+	width: 20%;
+}
+
+.visitbox_bottom button{
+	width: 100%;
+	background-color: black;
+	color: white;
+	border: none;
+	font-weight: bold;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
