@@ -62,15 +62,45 @@ public class VisitController extends HttpServlet {
 
 	// 3. 수정
 	protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+		
+		// 1. AJAX 데이터 요청
+		// 2. 객체화
+		// 3. Dao 에게 전달후 SQL 결과를 받는다
+		// 4. 결과를 AJAX에게 전달한다.
+		int vno = Integer.parseInt(request.getParameter("vno")); System.out.println("vno : " + vno);
+		String vcontent = request.getParameter("vcontent"); System.out.println("vcontent : " + vcontent);
+		String vpwd = request.getParameter("vpwd"); System.out.println("vpwd : " + vpwd);
+		
+		boolean result = VisitDao.getInstance().vupdate(vno, vcontent, vpwd);
+		response.setContentType("application/json;charset=UTF-8");
+		response.getWriter().print(result);
 	}
 
 	// 4. 삭제
 	protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+	
+		// 1. AJAX 데이터 요청
+		// 2. 객체화
+		// 3. Dao 에게 전달후 SQL 결과를 받는다
+		// 4. 결과를 AJAX에게 전달한다.
+		int vno = Integer.parseInt(request.getParameter("vno"));
+		String vpwd = request.getParameter("vpwd");
+		
+		boolean result = VisitDao.getInstance().vdelete(vno, vpwd);
+		response.setContentType("application/json;charset=UTF-8");
+		response.getWriter().print(result);
 	}
 
 }
+
+/*
+ 	- HTTP 서블릿 클래스는 기본적으로 get,post,put,delete 함수 제공
+ 	- 기본 톰캣서버는 get post만 매개변수 전달 가능
+ 	- put, delete 함수도 매개변수 전달 가능하도록 설정
+ 	server.xml
+ 		63줄쯤 원본 코드
+ 		
+ */
 
 
 

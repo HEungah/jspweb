@@ -1,0 +1,126 @@
+@charset "UTF-8";
+
+*{padding: 0px; margin: 0px;}
+
+.accountWrap{
+	width: 600px;
+	margin: 0 auto;
+}
+
+
+.accountTop{
+	margin-top: 20px;
+	display: flex;
+	justify-content: space-between;
+}
+
+.aItem{
+	width: 25%;
+	padding: 5px;
+	border: 1px solid #f7d0eb;
+}
+
+.aPayment{
+	width: 25%;
+	padding: 5px;
+	border: 1px solid #f7d0eb;
+}
+
+.aDate{
+	width: 25%;
+	padding: 4px;
+	border: 1px solid #f7d0eb;
+}
+
+.accountTop button{
+	width: 16%;
+	padding: 5px;
+	background-color: #f7d0eb;
+	border: 1px solid #eeeeee;
+	color: white;
+	font-weight: bold;
+}
+
+.accountBottom{
+	width: 100%;
+	margin: 30px auto;
+}
+
+.bottomBox{
+	width: 100%;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.bottomBtn button{
+	width: 100%;
+}
+
+.bottomItem{
+	width: 25%;
+	border: 1px solid #f7d0eb;
+	text-align: center;
+	padding: 5px;
+}
+
+.bottomPayment{
+	width: 25%;
+	border: 1px solid #f7d0eb;
+	text-align: center;
+	padding: 5px;
+}
+
+.bottomDate{
+	width: 25%;
+	border: 1px solid #f7d0eb;
+	text-align: center;
+	padding: 5px;
+}
+
+.bottomBtn{
+	widows: 16%;
+}
+
+.mdBtn{
+	background-color: blue;
+	border: none;
+	color: white;
+	font-weight: bold;
+	padding: 1px;
+}
+
+.dtBtn{
+	background-color: red;
+	border: none;
+	color: white;
+	font-weight: bold;
+	padding: 1px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

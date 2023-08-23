@@ -66,8 +66,8 @@ function vread(){	// 실행조건 : JS 열릴때 1번 실행, 등록, 수정, �
 				</div>
 				<div class="visitbox_center"> ${result[i].vcontent} </div>
 				<div class="visitbox_bottom">
-					<button type="button"> 수정 </button>
-					<button type="button"> 삭제 </button>
+					<button onclick="vupdate(${result[i].vno})" type="button"> 수정 </button>
+					<button onclick="vdelete(${result[i].vno})" type="button"> 삭제 </button>
 				</div>
 			</div>	
 			   				`
@@ -81,13 +81,49 @@ function vread(){	// 실행조건 : JS 열릴때 1번 실행, 등록, 수정, �
 }
 
 // 3. Update(수정)
-function vupdate(){
+function vupdate(vno){console.log('수정함수실행' + vno);
+	
+	// 1. 수정할 내용 입력
+	let vcontent = prompt('수정할 방문록 내용');
+	// 2. 비밀번호 일치할 경우에만 수정(비밀번호 체크)
+	let vpwd = prompt('방문록 비밀번호');
+	
+	// 수정시 필요한 데이터 : vno(방문록번호), vcontent(수정할 내용), vpwd(체크할 비밀번호)
+		$.ajax( { 
+       url : "/jspweb/VisitController",
+       data : {vno : vno, vcontent : vcontent, vpwd : vpwd},         // 보내는 데이터
+       method : "put",
+       success : function f( result ){ console.log(result);
+       		if(result){
+				   alert('수정성공');
+				   vread();
+			   }else{alert('비밀번호가 일치하지 않습니다.')}
+       },
+       error : function f(result){}
+		   });
+		   
 	
 }
 
 // 4. Delete(삭제)
-function vdelete(){
+function vdelete(vno){console.log('삭제함수실행' + vno);
 	
+	// 1. 비밀번호가 일치할 경우에 삭제하므로 비밀번호 체크
+	let vpwd = prompt('방문록 비밀번호')
+	
+	// 삭제시 필요한 데이터 : vno(방문록번호), vpwd(체크할 비밀번호)
+			$.ajax( { 
+       url : "/jspweb/VisitController",
+       data : {vno : vno, vpwd : vpwd},         // 보내는 데이터
+       method : "delete",
+       success : function f( result ){ console.log(result);
+              	if(result){
+				   alert('삭제성공');
+				   vread();
+			   }else{alert('비밀번호가 일치하지 않습니다.')}
+       },
+       error : function f(result){}
+		   });
 }
 
 

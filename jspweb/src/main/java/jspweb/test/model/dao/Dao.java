@@ -15,6 +15,7 @@ public class Dao {
 			Class.forName("com.mysql.cj.jdbc.Driver");	// 프로젝트마다 mysql-connecter 를 빌드패스 해야한다.
 			this.conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/JSPWEB"
 							, "root", "1234");
+			System.out.println("db연동성공");
 		}catch (Exception e) {System.out.println("경고] DB연동성공실패 : "+e);}
 	}
 

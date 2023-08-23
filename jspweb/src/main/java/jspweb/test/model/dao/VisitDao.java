@@ -57,13 +57,35 @@ public class VisitDao extends Dao{
 		return null;
 	}
 	
-	// 3. 수정[인수 : 수정할 번호(int), 수정할 방문록내용(String), 리턴 : 성공/실패 boolean값] 
-	public boolean vupdate(int vno, String vcontent) {
+	// 3. 수정[인수 : 수정할 번호(int), 수정할 방문록내용(String), 비밀번호 체크(String), 리턴 : 성공/실패 boolean값] 
+	public boolean vupdate(int vno, String vcontent, String vpw) {
+		try {
+			String sql = "update visitlog set vcontent = ? where vno = ? and vpw = ?";
+			ps = conn.prepareStatement(sql);
+			ps.setInt(2, vno);
+			ps.setString(1, vcontent);
+			ps.setString(3, vpw);
+			int row = ps.executeUpdate();
+			if(row == 1) {
+				return true;
+			}
+		} catch (Exception e) {System.out.println(e);}
+		
 		return false;
 	}
 	
-	// 4. 삭제[인수 : 삭제할 번호(int), 리턴 : 성공/실패 boolean값]
-	public boolean vdelete(int vno) {
+	// 4. 삭제[인수 : 삭제할 번호(int), 비밀번호 체크(String), 리턴 : 성공/실패 boolean값]
+	public boolean vdelete(int vno, String vpw) {
+		try {
+			String sql = "delete from visitlog where vno = ? and vpw = ?";
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, vno);
+			ps.setString(2, vpw);
+			int row = ps.executeUpdate();
+			if(row == 1) {
+				return true;
+			}
+		} catch (Exception e) {System.out.println(e);}
 		return false;
 	}
 	
