@@ -93,7 +93,7 @@ function modifyAccount(cno){
        		if(result){
 				   alert('수정성공');
 				   aread();
-			   }else{alert('비밀번호가 일치하지 않습니다.')}
+			   }
        },
        error : function f(result){}
 		   });
@@ -108,7 +108,7 @@ function deleteAccount(cno){
               	if(result){
 				   alert('삭제성공');
 				   aread();
-			   }else{alert('비밀번호가 일치하지 않습니다.')}
+			   }
        },
        error : function f(result){}
 		   });
