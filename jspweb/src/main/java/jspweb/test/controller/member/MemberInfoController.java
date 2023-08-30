@@ -49,7 +49,14 @@ public class MemberInfoController extends HttpServlet {
     // 회원가입
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     	
-    	String uploadpath = "C:\\Users\\504\\git\\jspweb\\jspweb\\src\\main\\webapp\\member\\img";		// 첨부파일 저장할 경로
+    	// 개발자 pc 경로 업로드
+    	// String uploadpath = "C:\\Users\\504\\git\\jspweb\\jspweb\\src\\main\\webapp\\member\\img";		// 첨부파일 저장할 경로
+    	// 서버 pc 경로 업로드
+    	// String uploadpath = "C:\\Users\\504\\Desktop\\workclass\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\jspweb\\member\\img";
+    	// 서버 pc 경로 업로드 (상대경로 => 서버경로 찾아주는 함수)
+    		// 서버에 build(배포)된 파일/폴더의 경로 찾기
+    	String uploadpath = request.getSession().getServletContext().getRealPath("/member/img");
+    	System.out.println("member 폴더 img 폴더 실제(서버) 경로 : " + uploadpath);
     	
     	// 첨부파일 전송 했을때.
     		// 1. 첨부파일 서버PC에 업로드(COS 라이브러리)
@@ -71,6 +78,9 @@ public class MemberInfoController extends HttpServlet {
     	String mpwd = multi.getParameter("mpwd"); System.out.println("mpwd : " + mpwd);
     	String memail = multi.getParameter("memail"); System.out.println("memail : " +memail);
     	String mimg = multi.getFilesystemName("mimg"); System.out.println("mimg : " +mimg);
+    	
+    	// *만약에 사진업로드를 하지 않았으면 기본프로필을 사용하도록 변경 = default.webp
+    	if(mimg == null) mimg = "default.webp";
     	
     	MemberDto memberDto = new MemberDto(mid, mpwd, memail, mimg);
     	boolean result = MemberDao.getInstance().signup(memberDto);

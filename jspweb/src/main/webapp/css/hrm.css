@@ -1,0 +1,110 @@
+@charset "UTF-8";
+
+*{padding: 0px; margin: 0px; box-sizing: border-box;}
+
+#hrmWrap{
+	width: 1000px;
+	margin: 0 auto;
+}
+
+.hrmBox{
+	width: 100%;
+	position: relative;
+}
+
+/* 인사정보입력 제목 */
+.hrmTitle{
+	text-align: center;
+}
+
+.hrmTitle::after{
+	content: "";
+    width: 20%;
+    margin-top: 5px;
+    border-bottom: 2px solid black;
+    display: inherit;
+    margin: 5px auto 0px;
+}
+
+.hrmTop{
+	width : 100%;
+	margin-top: 30px;
+	display: flex;
+	align-content: space-around;
+	border: 1px solid black;
+	padding: 10px 0px 10px 20px;
+}
+
+.inputBox{
+	width: 25%;
+	margin-right: 20px;
+}
+
+.hrmTop input, .hrmTop select{
+	width: 100%;
+}
+
+.label{
+	padding-left: 5px;
+}
+
+.inputBtn{
+	position: absolute;
+	right: 5px;
+    bottom: -40px;
+	padding: 5px;
+}
+
+.hrmBottom{
+	width: 100%;
+	margin-top: 100px;
+}
+
+.hrmTable{
+	width: 100%;
+	margin: 0 auto;
+}
+
+.hrmTableHead tr{
+	text-align: center;
+	width: 100%;
+}
+
+.tableTh{
+	width: 20%;
+}
+
+.hrmPrint tr{
+	text-align: center;
+}
+
+.profile{
+	width: 100px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

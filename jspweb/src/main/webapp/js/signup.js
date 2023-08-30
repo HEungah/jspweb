@@ -69,9 +69,11 @@ function idcheck(){	/*실행조건 : 아이디 입력창에 입력할때마다*/
         success : r =>{console.log('유효성함수실행')
 			if(r){
 				idcheck.innerHTML = '사용중인 아이디입니다.';
+				idcheck.style.color = "red";
 				checkList[0] = false;
 			}else{
 				idcheck.innerHTML = '사용할 수 있는 아이디입니다.';
+				idcheck.style.color = "#43E300";
 				checkList[0] = true;
 			}
 			
@@ -81,6 +83,7 @@ function idcheck(){	/*실행조건 : 아이디 입력창에 입력할때마다*/
      
 	}else{	// 입력한 값이 패턴과 일치하지 않으면
 		idcheck.innerHTML = '영문(소문자)+숫자 조합의 5~30글자만 가능합니다.';
+		idcheck.style.color = "red";
 		checkList[0] = false;
 	}
 	
@@ -106,20 +109,24 @@ function pwcheck(){console.log('pw 유효성검사');
 		if(mpwj.test(mpwdconfirm)){
 			// 비밀번호 와 비밀번호확인 일치여부
 			if(mpwd == mpwdconfirm){
-				pwcheckbox.innerHTML = `사용가능한 비밀번호`;	
+				pwcheckbox.innerHTML = `사용가능한 비밀번호`;
+				pwcheckbox.style.color = "#43E300";	
 				checkList[1] = true;
 			}else{
 				pwcheckbox.innerHTML = `비밀번호화 비밀번호확인의 값이 다릅니다.`
+				pwcheckbox.style.color = "red";
 				checkList[1] = false;
 			}
 		}else{
 			pwcheckbox.innerHTML = `영대소문자1개이상+숫자1개이상 조합 5~20글자 사이로 입력해주세요.`
+			pwcheckbox.style.color = "red";
 			checkList[1] = false;
 		}
 		
 	}else{
 		console.log('정규표현식 실패');
 		pwcheckbox.innerHTML = `영대소문자1개이상+숫자1개이상 조합 5~20글자 사이로 입력해주세요.`
+		pwcheckbox.style.color = "red";
 		checkList[1] = false;
 	}
 }	// pwcheck() end
@@ -149,10 +156,12 @@ function emailcheck(){
 	        success : r =>{console.log('유효성함수실행')
 				if(r){
 					emailcheckbox.innerHTML = `사용중인 이메일입니다.`
+					emailcheckbox.style.color = "red";
 					document.querySelector('.authReqBtn').disabled = true;
 					checkList[2] = false;					
 				}else{
-					emailcheckbox.innerHTML = `사용가능한 이메일입니다.`	
+					emailcheckbox.innerHTML = `사용가능한 이메일입니다.`
+					emailcheckbox.style.color = "#43E300";	
 					document.querySelector('.authReqBtn').disabled = false;
 					checkList[2] = false;			
 				}
@@ -161,7 +170,8 @@ function emailcheck(){
 	        // error : r =>{}
 	     });
 	}else{
-		emailcheckbox.innerHTML = `이메일형식에 맞게 입력해주세요.`	
+		emailcheckbox.innerHTML = `이메일형식에 맞게 입력해주세요.`
+		emailcheckbox.style.color = "red";	
 		document.querySelector('.authReqBtn').disabled = true;
 		checkList[2] = false;								
 	}
@@ -370,15 +380,18 @@ function signup(){
 		       processData : false,
 		       method : "post",		// 첨부파일 form 전송은 post 방식
 		        success : r =>{console.log('통신성공')
+		        	if(r){		// 회원가입성공 알림, 페이지전환
+						alert('회원가입성공');
+						location.href = '/jspweb/member/login.jsp';
+					}else{
+						alert('회원가입실패');
+					}
 				},
        			 error : e=>{console.log(e)}
      		});
-		
-		
-		
-		
+     		
 	}else{
-		console.log('회원가입 진행불가능')
+		alert('정상적으로 입력되지 않은 내용이 있습니다.');
 	}
 }
 

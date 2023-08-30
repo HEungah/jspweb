@@ -23,7 +23,6 @@ public class MemberFindController extends HttpServlet {
 		// 1. 요청한다
 		String type = request.getParameter("type");
 		String data = request.getParameter("data");
-		System.out.println(data);
 		
 		// 2. 객체화/유효성검사
 		
@@ -34,9 +33,42 @@ public class MemberFindController extends HttpServlet {
 		
 		// 4. 결과 응답
 	}
-
+	
+	// 로그인
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+		
+		// 1. 매개변수 요청
+		
+		String mid = request.getParameter("mid");
+		String mpwd = request.getParameter("mpwd");
+		
+		// 2. (객체화/유효성검사)
+		
+		// 3. DAO 에게 전달후 결과 받기
+		boolean result = MemberDao.getInstance().login(mid, mpwd);
+		
+		// 4. 결과를 응답한다.
+		response.setContentType("application/json;charset=UTF-8");
+		response.getWriter().print(result);	
+		
 	}
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
