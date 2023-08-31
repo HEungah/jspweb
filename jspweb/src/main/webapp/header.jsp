@@ -29,11 +29,7 @@
 		</ul>
 		<!-- 서브메뉴 -->
 		<ul class="submenu">
-			<li><a href="/jspweb/member/signup.jsp">회원가입</a></li>
-			<li><a href="/jspweb/member/login.jsp">로그인</a></li>
-			<li><a href="#">로그아웃</a></li>
-			<li><a href="#">마이페이지</a></li>
-			<li><img class="hmimg" src="/jspweb/member/img/default.webp"/></li>
+			
 		</ul>	
 	</div>
 	
@@ -41,6 +37,9 @@
 	
 	<!-- jquery -->
 	<script  src="http://code.jquery.com/jquery-latest.min.js"></script>
+	
+	<!-- js -->
+	<script type="text/javascript" src="/jspweb/js/header.js"></script>
 		
 </body>
 </html>

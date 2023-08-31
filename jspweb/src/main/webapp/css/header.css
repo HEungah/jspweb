@@ -2,7 +2,11 @@
 
 /* 공통 css */
 /* 여백제거, 구역사이즈기준 -> 테두리기준 */
-*{padding: 0px; margin: 0px; box-sizing: border-box; font-family: 'HANAMDAUM';}
+*{
+	padding: 0px; margin: 0px; 
+	box-sizing: border-box; 
+	font-family: 'HANAMDAUM';
+}
 /* a태그색상, 밑줄제거 */
 a{color: black; text-decoration: none;}
 li{list-style-type: none;}
@@ -36,7 +40,8 @@ li{list-style-type: none;}
 	display: flex;
 	align-items: center;
 	justify-content: space-around;
-	margin: 20px 0px 50px 0px;
+	margin: 0px 0px 50px 0px;
+	background-color: #FBE0C3;
 }
 
 .mainlogo{
