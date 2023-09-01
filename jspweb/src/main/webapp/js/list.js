@@ -21,9 +21,11 @@ printBoard();
 // 게시판 출력 함수
 function printBoard(){
 	
+	sessionStorage.setItem("bno", 0);
+	
 	$.ajax( { 
        url : "/jspweb/BoardInfoController",
-       data : "",         // 보내는 데이터
+       data : {type : "aBoard"},         // 보내는 데이터
        method : "get",
        success : r =>{console.log('통신성공')
        
@@ -33,7 +35,7 @@ function printBoard(){
       		for(let i =0; i < r.length; i++){
 				  html += 
 				  `
-				  	<tr>
+				  	<tr onclick="printPBoard(${r[i].bno})">
 				      <th scope="row" class="bno">${r[i].bno}</th>
 				      <td class="bcname">${r[i].bcname}</td>
 				      <td class="btitle">${r[i].btitle}</td>
@@ -48,6 +50,14 @@ function printBoard(){
        	error : e=>{console.log(e)}
      });
 	
+	
+}
+
+function printPBoard(bno){ console.log('개별게시물 출력, 게시물번호' + bno);
+	
+	sessionStorage.setItem("bno", bno);
+	
+	location.href = "/jspweb/board/view.jsp";
 	
 }
 

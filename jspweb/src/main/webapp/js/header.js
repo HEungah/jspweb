@@ -26,6 +26,7 @@ function getMembertInfo(){
 				`
 			}else{	// 로그인상태
 				loginState = true;
+				sessionStorage.setItem("loginMno", r.mno);
 				if(r.mid == "admin"){/*관리자로그인상태*/}
 				
 				html +=
@@ -52,6 +53,7 @@ function logout(){
        data : {type : "logout"},         // 보내는 데이터
        method : "get",
         success : r =>{
+			sessionStorage.setItem("loginMno", 0);
 			location.href = "/jspweb/index.jsp"
         },
         error : e =>{console.log(e)}

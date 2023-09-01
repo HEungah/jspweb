@@ -43,7 +43,7 @@ public class BoardDao extends Dao{
 		ArrayList<BoardDto> list = new ArrayList<>();
 		
 		try {
-			String sql = "select b.bno, bc.bcname, b.btitle, m.mid, b.bdate, b.bview from board b, member m, bcategory bc where b.bcno = bc.bcno and b.mno = m.mno";
+			String sql = "select b.*, m.mid, bc.bcname from board b, member m, bcategory bc where b.bcno = bc.bcno and b.mno = m.mno order by b.bno desc";
 			ps = conn.prepareStatement(sql);
 			rs = ps.executeQuery();
 			while(rs.next()) {
@@ -59,11 +59,69 @@ public class BoardDao extends Dao{
 	}
 	
 	// 3. 개별 글 출력
+	public BoardDto printPBoard(int bno) {
+		
+		
+		try {
+			String sql = "select*from board where bno = ?";
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, bno);
+			rs = ps.executeQuery();
+			if(rs.next()) {
+				BoardDto bDto = new BoardDto(rs.getInt(1), rs.getString(2), rs.getString(3), 
+						rs.getString(4), rs.getString(5), rs.getInt(6), rs.getInt(7), rs.getInt(8));
+				return bDto;
+			}
+			
+			
+		} catch (Exception e) {}
+		
+		return null;
+	}
 	
 	// 4. 게시물 수정
 	
+	public boolean updateVeiw(BoardDto bDto) {
+		
+		try {
+			String sql = "update board set btitle = ?, bcontent = ?, bfile = ?, bdate = now(), bview = 0, bcno = ? where bno = ?";
+			ps = conn.prepareStatement(sql);
+			
+		} catch (Exception e) {System.out.println(e);}
+		
+		return false;
+	}
+	
 	// 5. 게시물 삭제
+	public boolean deleteVeiw(int bno) {
+		
+		try {
+			String sql = "delete from board where bno = ?";
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, bno);
+			int row = ps.executeUpdate();
+			if(row == 1) {
+				return true;
+			}
+			
+		} catch (Exception e) {System.out.println(e);}
+		
+		return false;
+	}
 	
 	// 6. 조회수 증가
+	public boolean viewPlus(int bno) {
+		try {
+			String sql = "update board set bview = bview + 1 where bno = ?";
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, bno);
+			int row = ps.executeUpdate();
+			if(row == 1) {
+				return true;
+			}
+			
+		} catch (Exception e) {System.out.println(e);}
+		return false;
+	}
 
 }

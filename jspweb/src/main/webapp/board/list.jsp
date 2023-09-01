@@ -31,15 +31,8 @@
 		      <th scope="col">조회수</th>
 		    </tr>
 		  </thead>
-		  <tbody class="boardContent">
-		    <tr>
-		      <th scope="row" class="bno">1</th>
-		      <td class="bcname">공지사항</td>
-		      <td class="btitle">수업변경사항</td>
-		      <td class="mid">admin</td>
-		      <td class="bdate">2023-09-01</td>
-		      <td class="bview">0</td>
-		    </tr>
+		  <tbody class="boardContent">	<!-- 게시판 내용 출력하는곳 -->
+
 		  </tbody>
 		</table>
 		<button type="button" class="btn btn-outline-info" onclick="onWrite()">글쓰기</button>

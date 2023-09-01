@@ -19,6 +19,19 @@ public class BoardDto {	/* 게시물, 카테고리 */
 	public BoardDto() {}
 	
 
+	public BoardDto(int bno, String btitle, String bcontent, String bfile, String bdate, int bview, int mno, int bcno) {
+		super();
+		this.bno = bno;
+		this.btitle = btitle;
+		this.bcontent = bcontent;
+		this.bfile = bfile;
+		this.bdate = bdate;
+		this.bview = bview;
+		this.mno = mno;
+		this.bcno = bcno;
+	}
+
+
 	public BoardDto(String btitle, String bcontent, String bfile, int mno, int bcno) {
 		super();
 		this.btitle = btitle;
