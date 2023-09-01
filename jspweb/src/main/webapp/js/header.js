@@ -1,6 +1,8 @@
 console.log('header.js 실행');
 
 // 1. 현재 로그인된 회원정보 요청
+let loginState = false;		// 로그인 스위치
+
 getMembertInfo();
 
 function getMembertInfo(){
@@ -16,12 +18,14 @@ function getMembertInfo(){
         	let html = ``;
         
         	if(r == null){	// 비로그인 상태
+        		loginState = false;
 				html += 
 				`
 					<li><a href="/jspweb/member/signup.jsp">회원가입</a></li>
 					<li><a href="/jspweb/member/login.jsp">로그인</a></li>
 				`
 			}else{	// 로그인상태
+				loginState = true;
 				if(r.mid == "admin"){/*관리자로그인상태*/}
 				
 				html +=
