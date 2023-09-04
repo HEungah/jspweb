@@ -3,10 +3,15 @@ console.log('view.js 실행');
 printView();
 
 // 선택한 게시물 출력
-function printView(){
+function printView(){console.log('printVeiw 함수 실행')
+	//	URL에 있는 매개변수(쿼리스트링) 가져오기
+		// 1. 현재 주소(url)상 매개변수 가져오기
+	let urlParams = new URL(location.href).searchParams
+		console.log(urlParams)
 	
-	let bno = sessionStorage.getItem("bno");
+	let bno = urlParams.get("bno");	// url상의 bno 데이터 가져오기
 	
+	// 2. AJAX 이용한 bno 전달해서 게시물의 상세 정보 모두 가져오기
 	$.ajax( { 
        url : "/jspweb/BoardInfoController",
        data : {type : "pBoard", bno: bno},         // 보내는 데이터
@@ -17,20 +22,36 @@ function printView(){
        		let html = ``;
        		
        		html = 
-       		`
-				<div class="viewTitle">
-					${r.btitle}
-				</div>
-				<div class="viewContent">
-					${r.bcontent}
-				</div>
+       		`	<table class="table">
+					<thead>
+						<tr class="table-active">
+							<th scope="col" style="width: 60%"><h3>${r.btitle}</h3><br>
+								<img class="mimg img-fluid" alt="" src="/jspweb/member/img/${r.mimg}">${r.mid}</th>
+							<th scope="col" style="width: 40%" class="text-right tdate">${r.bdate}</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td><h6>${r.bcname}</h6></td><td></td>
+						</tr>
+						<tr>
+							<td><pre>${r.bcontent}</pre></td><td></td>
+						</tr>
+						<tr>
+							<td><img class="bfile" alt="" src="file/${r.bfile}"></td><td></td>
+						</tr>
+					</tbody>
+				</table>
+				
+				
+
        		`
        		let mno = sessionStorage.getItem("loginMno");
        		console.log(mno);
-       		if(r.mno == mno){
+       		if(r.ishost){
 				   html += `
-					<button onclick="updateBoard(${r.bno})" type="button">수정</button>
-					<button onclick="deleteBoard(${r.bno})" type="button">삭제</button>
+					<button class="btn btn-outline-info" onclick="updateBoard(${r.bno})" type="button">수정</button>
+					<button class="btn btn-outline-info" onclick="deleteBoard(${r.bno})" type="button">삭제</button>
 				`
 			}
 				
@@ -71,9 +92,7 @@ function deleteBoard(bno){console.log('삭제기능 실행')
 // 게시물 수정함수
 function updateBoard(bno){ console.log('수정함수 실행');
 	
-	sessionStorage.setItem("bno", bno);
-	
-	location.href = "/jspweb/board/update.jsp";
+	location.href = `/jspweb/board/update.jsp?bno=${bno}`;
 	
 }
 

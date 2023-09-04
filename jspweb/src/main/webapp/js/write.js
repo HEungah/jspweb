@@ -48,3 +48,4 @@ function bwrite(){console.log('write 함수 실행')
 
 
 
+

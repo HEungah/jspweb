@@ -61,6 +61,10 @@ function logout(){
 	
 }	// f end
 
+function returnList(){
+	location.href = "/jspweb/board/list.jsp";
+}
+
 
 
 

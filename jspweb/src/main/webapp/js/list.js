@@ -21,8 +21,6 @@ printBoard();
 // 게시판 출력 함수
 function printBoard(){
 	
-	sessionStorage.setItem("bno", 0);
-	
 	$.ajax( { 
        url : "/jspweb/BoardInfoController",
        data : {type : "aBoard"},         // 보내는 데이터
@@ -35,10 +33,10 @@ function printBoard(){
       		for(let i =0; i < r.length; i++){
 				  html += 
 				  `
-				  	<tr onclick="printPBoard(${r[i].bno})">
+				  	<tr>
 				      <th scope="row" class="bno">${r[i].bno}</th>
 				      <td class="bcname">${r[i].bcname}</td>
-				      <td class="btitle">${r[i].btitle}</td>
+				      <td a class="btitle"><a href="/jspweb/board/view.jsp?bno=${r[i].bno}">${r[i].btitle}</a></td>
 				      <td class="mid">${r[i].mid}</td>
 				      <td class="bdate">${r[i].bdate}</td>
 				      <td class="bview">${r[i].bview}</td>
@@ -53,13 +51,19 @@ function printBoard(){
 	
 }
 
-function printPBoard(bno){ console.log('개별게시물 출력, 게시물번호' + bno);
-	
-	sessionStorage.setItem("bno", bno);
-	
-	location.href = "/jspweb/board/view.jsp";
-	
-}
+
+/*
+	HTTP URL에 매개변수(파라미터) 전달 [ 쿼리스트림 방식 ]
+		- 형태
+			URL ? 변수명=데이터
+			URL ? 변수명=데이터&변수명=데이터
+			http://localhost:80/jspweb/board/view.jsp?식별변수=${}
+		
+		- 정의	: 페이지 전환시 매개변수(식별키) 전달
+		
+		- URL 에서 매개변수 호출
+			new URL(location.href).searchParams.get("변수명")
+*/
 
 
 

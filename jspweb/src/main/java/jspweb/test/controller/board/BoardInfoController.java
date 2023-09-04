@@ -55,7 +55,23 @@ public class BoardInfoController extends HttpServlet {
 			// 조회수 증가
 			boolean result = BoardDao.getInstance().viewPlus(bno);
 			
+			// 만약에 요청한 사람과 게시물 작성한 사람이 동일하면
+				// 로그인 정보[세션]
+			
 			BoardDto bDto = BoardDao.getInstance().printPBoard(bno);
+			
+			Object object =  request.getSession().getAttribute("loginDto");
+			if(object == null) {	// 비로그인
+				bDto.setIshost(false);
+			}else {	// 로그인
+				MemberDto login = (MemberDto)object;
+				
+				if(login.getMno() == bDto.getMno()) {	// 작성한사람의 게시물일경우
+					bDto.setIshost(true);
+				}else {		// 작성한사람의 게시물이 아닐경우
+					bDto.setIshost(false);
+				}
+			}
 			
 			ObjectMapper objectMapper = new ObjectMapper();
 			String jsonArray = objectMapper.writeValueAsString(bDto);
@@ -66,7 +82,7 @@ public class BoardInfoController extends HttpServlet {
 		}
 	}
 
-
+	// 게시물 등록
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		String uploadpath = request.getSession().getServletContext().getRealPath("/board/file");
@@ -99,7 +115,6 @@ public class BoardInfoController extends HttpServlet {
 	protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		String uploadpath = request.getSession().getServletContext().getRealPath("/board/file");
-    	System.out.println("board / file 폴더 실제(서버) 경로 : " + uploadpath);
 		
     	MultipartRequest multi = new MultipartRequest(
 				request,	// 요청방식
@@ -112,13 +127,18 @@ public class BoardInfoController extends HttpServlet {
     	Object session = request.getSession().getAttribute("loginDto");
     	int mno = ((MemberDto)session).getMno();
     	
-    	int bcno = Integer.parseInt(multi.getParameter("newbcno"));	System.out.println("bcno : " + bcno);
-    	String btitle = multi.getParameter("newbtitle");	System.out.println("btitle : " + btitle);
-    	String bcontent = multi.getParameter("newbcontent");	System.out.println("bcontent : " + bcontent);
-    	String bfile = multi.getFilesystemName("newbfile"); System.out.println("bfile : " +bfile);
+    	int bcno = Integer.parseInt(multi.getParameter("newbcno"));
+    	int bno = Integer.parseInt(multi.getParameter("bno")); System.out.println(bno);
+    	String btitle = multi.getParameter("newbtitle"); System.out.println(btitle);
+    	String bcontent = multi.getParameter("newbcontent"); System.out.println(bcontent);
+    	String bfile = multi.getFilesystemName("newbfile");
     	
-    	BoardDto boardDto = new BoardDto(btitle, bcontent, bfile, mno, bcno); 
+    	BoardDto boardDto = new BoardDto(bno, btitle, bcontent, bfile, mno, bcno);
+    	System.out.println("Dto" + boardDto);
+		boolean result = BoardDao.getInstance().updateVeiw(boardDto);
 		
+		response.setContentType("application/json; charset=utf-8");
+    	response.getWriter().print(result);
 	}
 
 	

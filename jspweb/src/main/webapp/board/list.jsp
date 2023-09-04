@@ -13,7 +13,7 @@
       rel="stylesheet"
       integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx"
       crossorigin="anonymous"
-    />
+     />
 </head>
 <body>
 
@@ -31,7 +31,7 @@
 		      <th scope="col">조회수</th>
 		    </tr>
 		  </thead>
-		  <tbody class="boardContent">	<!-- 게시판 내용 출력하는곳 -->
+		  <tbody class="table-group-divider boardContent">	<!-- 게시판 내용 출력하는곳 -->
 
 		  </tbody>
 		</table>

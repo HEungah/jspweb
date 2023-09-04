@@ -1,6 +1,17 @@
 @charset "UTF-8";
 
+#updateWrap{
+	width: 1300px;
+	margin: 0 auto;
+}
 
+.mb-3{
+	margin-top: 20px;
+}
+
+.mb-3 label{
+	margin-left: 10px;
+}
 
 
 

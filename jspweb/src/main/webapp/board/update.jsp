@@ -7,37 +7,52 @@
 <title>Insert title here</title>
 
 	<link href="../css/update.css" rel="stylesheet">
+	<link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx"
+      crossorigin="anonymous"
+     />
 </head>
 <body>
 
 	<%@include file = "../header.jsp" %>
 	
-	<div class="updateWrap">	<!-- 수정페이지 전체화면 -->
+	<div id="updateWrap">	<!-- 수정페이지 전체화면 -->
 		<div class="updateBox">
-			<form class="updateForm">
-				<div>
-					카테고리 : <select name="newbcno" class="newbcno">
-									<option value="1">공지사항</option>
-									<option value="2">자유게시판</option>
-									<option value="3">노하우</option>
-								</select>
-				</div>
-				<div>
-					제목 : <input type="text" name="newbtitle" class="newbtitle">
-				</div>
-				<div>
-					내용 : <textarea name="newbcontent" class="newbcontent" rows="" cols=""></textarea>
-				</div>
-				<div>
-					첨부파일 : <input type="file" name="newbfile" class="newbfile">
-				</div>
-			</form>
-			<button onclick="bupdate()" type="button">수정</button>
-			<button type="reset">다시쓰기</button>
-			<a href="list.jsp"> 목록보기 </a>
+			<form class="updateForm position-relative">	<!-- 글쓰기 입력 구역 -->
+			<select class="form-select newbcno" name="newbcno" aria-label="Default select example">
+			  <option selected>카테고리</option>
+			  <option value="1">공지사항</option>
+			  <option value="2">자유게시판</option>
+			  <option value="3">노하우</option>
+			</select>
+			<div class="mb-3">
+				<label for="basic-url" class="form-label"> 제목 </label>
+  				<input type="text" class="form-control newbtitle" name="newbtitle" placeholder="제목" aria-label="제목" aria-describedby="basic-addon2">
+			</div>
+			<div class="input-group">
+  				<span class="input-group-text"> 내용 </span>
+  				<textarea class="form-control newbcontent" name="newbcontent" aria-label="With textarea"></textarea>
+			</div>
+			<div class="mb-3">
+  				<label class="form-label">첨부파일</label>
+  				<input type="file" class="form-control newbfile" name="newbfile" id="inputGroupFile01">
+			</div>
+			<div class="position-absolute end-0">
+				<button class="btn btn-outline-info" onclick="bupdate()" type="button">수정</button>
+				<button class="btn btn-outline-info" type="reset">다시쓰기</button>
+				<button class="btn btn-outline-info" onclick="returnList()" type="button">목록보기</button>
+			</div>
+		</form>
 		</div>
 	</div>
 	
+	<script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"
+      crossorigin="anonymous"
+    ></script>
 	
 	<script type="text/javascript" src="../js/update.js"></script>
 

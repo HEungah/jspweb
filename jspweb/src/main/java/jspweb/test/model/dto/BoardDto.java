@@ -15,6 +15,8 @@ public class BoardDto {	/* 게시물, 카테고리 */
 	// DB 없지만 추가하면 좋은것
 	private String mid;	// 작성자 회원 아이디
 	private String bcname;	// 카테고리명
+	private String mimg;	// 작성자 프로필사진
+	private boolean ishost;		// 본인글 체크변수
 	
 	public BoardDto() {}
 	
@@ -40,6 +42,16 @@ public class BoardDto {	/* 게시물, 카테고리 */
 		this.mno = mno;
 		this.bcno = bcno;
 	}
+	
+	public BoardDto(int bno, String btitle, String bcontent, String bfile, int mno, int bcno) {
+		super();
+		this.bno = bno;
+		this.btitle = btitle;
+		this.bcontent = bcontent;
+		this.bfile = bfile;
+		this.mno = mno;
+		this.bcno = bcno;
+	}
 
 	public BoardDto(int bno, String btitle, String bcontent, String bfile, String bdate, int bview, int mno, int bcno,
 			String mid, String bcname) {
@@ -55,6 +67,43 @@ public class BoardDto {	/* 게시물, 카테고리 */
 		this.mid = mid;
 		this.bcname = bcname;
 	}
+
+	public BoardDto(int bno, String btitle, String bcontent, String bfile, String bdate, int bview, int mno, int bcno,
+			String mid, String bcname, String mimg) {
+		super();
+		this.bno = bno;
+		this.btitle = btitle;
+		this.bcontent = bcontent;
+		this.bfile = bfile;
+		this.bdate = bdate;
+		this.bview = bview;
+		this.mno = mno;
+		this.bcno = bcno;
+		this.mid = mid;
+		this.bcname = bcname;
+		this.mimg = mimg;
+	}
+
+
+	public String getMimg() {
+		return mimg;
+	}
+
+
+	public void setMimg(String mimg) {
+		this.mimg = mimg;
+	}
+
+
+	public boolean isIshost() {
+		return ishost;
+	}
+
+
+	public void setIshost(boolean ishost) {
+		this.ishost = ishost;
+	}
+
 
 	public int getBno() {
 		return bno;
