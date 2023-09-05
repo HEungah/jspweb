@@ -20,8 +20,34 @@
 	<%@include file = "../header.jsp" %>
 	
 	<div class="BoardWrap">	<!-- 게시판 전체구역 -->
-		<table class="table">
-		  <thead>
+	
+		<div class="boardtop">
+			<h2> 게시판 </h2>
+			<p> 다양한 사람들과 정보를 공유하세요 </p>
+		</div>
+		
+		<div class="boardtopetc">
+			<button type="button" class="btn btn-outline-success" onclick="onWrite()">글쓰기</button>
+			<div>
+				<select onchange="onListSize()" class="selectBtn">		<!-- 하나의 페이지에 표시할 최대 게시물수  -->
+					<option>10</option>
+					<option>15</option>
+					<option>20</option>
+				</select>
+				<span class="boardcount"></span>
+			</div>
+		</div>
+		<!-- 카테고리 구역 -->
+		<div class="boardcategorybox">
+			<button onclick="onCategory(0)" class="btn btn-outline-info" type="button"> 전체보기 </button>
+			<button onclick="onCategory(1)" class="btn btn-outline-info" type="button"> 공지사항 </button>
+			<button onclick="onCategory(2)" class="btn btn-outline-info" type="button"> 자유게시판 </button>
+			<button onclick="onCategory(3)" class="btn btn-outline-info" type="button"> 노하우 </button>
+		</div>
+		
+		<table class="table caption-top">
+			<caption class="tableCaption">글 목록 페이지</caption>
+		  <thead class="tableHead table-info">
 		    <tr>
 		      <th scope="col" >게시물번호</th>
 		      <th scope="col" >카테고리</th>
@@ -34,8 +60,23 @@
 		  <tbody class="table-group-divider boardContent">	<!-- 게시판 내용 출력하는곳 -->
 
 		  </tbody>
-		</table>
-		<button type="button" class="btn btn-outline-info" onclick="onWrite()">글쓰기</button>
+	  </table>
+	  <div class="boardBottom">
+		  <!-- 페이징 처리 -->
+		  <div class="pagingBox">
+			  
+			</div>
+			<!-- 검색 구역 -->
+			<div class="inputBox">
+				<select class="form-select cateslc">	<!-- 검색 키워드 -->
+					<option> 제목 </option>
+					<option> 내용 </option>
+					<option> 작성자 </option>
+				</select>
+				<input class="form-control seachinput" type="text">	<!-- 검색내용 -->
+				<button class="btn btn-primary btn-sm" type="button"> 검색 </button>
+			</div>
+		</div>
 	</div>
 	
 	

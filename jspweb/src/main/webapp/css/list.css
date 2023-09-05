@@ -6,7 +6,81 @@
 	margin: 0 auto;
 }
 
+.table{
+	margin-top: 20px;
+}
 
+.tableHead, .boardContent{
+	text-align: center;
+}
+
+.table th, td{
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.tableCaption{
+	color: black;
+	padding-left: 20px;
+}
+
+.mimg{
+	width: 20px;
+	height: 20px;
+	border-radius: 50%;
+}
+
+.boardtop{
+	text-align: center;
+}
+
+.boardtopetc{
+	display: flex;
+	justify-content: space-between;
+	margin: 10px 0px;
+}
+
+.boardcount{
+	margin-left: 20px;
+}
+
+.boardBottom{
+	border-top: 1px solid #e8e8e8;
+	padding-top: 30px;
+	margin: 50px 0px;
+	text-align: center;
+}
+
+.inputBox{
+	display: flex;
+    justify-content: center;
+}
+
+.inputBox select{
+	width: 10%;
+}
+
+.inputBox input, .inputBox button{
+	margin-left: 10px;
+}
+
+.inputBox input{
+	width: 20%;
+}
+
+
+/* 
+	하위 요소를 인덱스로 식별하기
+		- 인덱스 : 1번부터 시작
+		- 목적 : 동일한 식별자가 여러개일때 사용 [중복 식별자를 식별할때]
+		- 상위요소 하위요소 : nth-child(인덱스)
+			form input:nth-child(1) : form태그 하위요소의 첫번째 input요소
+			form input:nth-child(3) : form태그 하위요소의 세번째 input요소
+			
+			상위요소 하위요소 : nth-child(odd) : 형제 목록중에 짝수번째 요소 식별
+			상위요소 하위요소 : nth-child(even) : 형제 목록중에 홀수번째 요소 식별
+ */
 
 
 

@@ -14,7 +14,7 @@ function printView(){console.log('printVeiw 함수 실행')
 	// 2. AJAX 이용한 bno 전달해서 게시물의 상세 정보 모두 가져오기
 	$.ajax( { 
        url : "/jspweb/BoardInfoController",
-       data : {type : "pBoard", bno: bno},         // 보내는 데이터
+       data : {type : "2", bno: bno},         // 보내는 데이터
        method : "get",
        success : r =>{console.log('통신성공')
        		

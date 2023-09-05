@@ -18,6 +18,7 @@ import jspweb.test.model.dao.HrmDao;
 import jspweb.test.model.dto.BoardDto;
 import jspweb.test.model.dto.HrmDto;
 import jspweb.test.model.dto.MemberDto;
+import jspweb.test.model.dto.PageDto;
 
 
 @WebServlet("/BoardInfoController")
@@ -35,20 +36,36 @@ public class BoardInfoController extends HttpServlet {
 		String type = request.getParameter("type");
 		
 		// 전체 게시물 출력
-		if(type.equals("aBoard")) {
-		
-			ArrayList<BoardDto> result = BoardDao.getInstance().printBoard();
+		if(type.equals("1")) {
+			
+			int bcno = Integer.parseInt(request.getParameter("bcno"));
+			// 페이징처리
+			int listSize = Integer.parseInt(request.getParameter("listSize"));
+			int page = Integer.parseInt(request.getParameter("page"));
+			// 마지막페이지번호(마지막페이지번호 = 전체게시물수 /페이지별 최대게시물수)
+				// 전체게시물수
+			int totalsize = BoardDao.getInstance().getTotalSize(bcno);
+				// 총페이지수
+			int totalpage = totalsize%listSize == 0 ? totalsize/listSize : (totalsize/listSize) + 1;
+			
+			
+			// 페이지별 레코드의 시작번호
+			int startrow = (page-1)*listSize;	// 페이지번호*최대게시물수
+			
+			ArrayList<BoardDto> result = BoardDao.getInstance().printBoard(bcno, listSize, startrow);
 			System.out.println(result);
+			PageDto pageDto = new PageDto(page, listSize, startrow, totalsize, totalpage, result);
+			
 			// 리턴값을 JSON 형식으로 변환
 			ObjectMapper objectMapper = new ObjectMapper();
-			String jsonArray = objectMapper.writeValueAsString(result);
+			String jsonArray = objectMapper.writeValueAsString(pageDto);
 			
 			response.setContentType("application/json;charset=UTF-8");
 			response.getWriter().print(jsonArray);
 		
 		}
 		// 개별 게시물 출력
-		else if(type.equals("pBoard")) {
+		else if(type.equals("2")) {
 			
 			
 			int bno = Integer.parseInt(request.getParameter("bno"));
