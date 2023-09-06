@@ -2,9 +2,14 @@ console.log('list.js 실행');
 
 
 /* 게시물 조회 조건 객체 */
-let pageObject = { type : 1, bcno : 0, listSize : 10, page : 1};
+let pageObject = { type : 1, bcno : 0, listSize : 10, page : 1,
+								key : '', keyword : ''};
 	// * type : (1 : 전체조회, 2 : 개별조회)
 	// * bcno : 조회할 카테고리 번호[ 기본값은 전체보기]
+	// * listSize : 한페이지에 표시될 게시물 수
+	// * page : 현재페이지번호
+	// * key : 검색분류
+	// * keyword : 검색할 내용
 
 // 작성버튼 누르면 실행되는 함수
 function onWrite(){
@@ -74,7 +79,7 @@ function printBoard(page){
 				      </a>
 				    </li>
 			 `;
-			 for(let i = 1; i <= r.totalpage; i++){
+			 for(let i = r.startbtn; i <= r.endbtn; i++){
 				 // 만약에 현재페이지와 i번째 페이지가 일치하면 버튼태그에 active 속성 추가
 				html +=
 				 		`
@@ -97,15 +102,21 @@ function printBoard(page){
 			  
 			  // 게시물수 출력
 			  let boardcount = document.querySelector('.boardcount');
-			  boardcount.innerHTML = `전체 게시물수 : ${r.totalsize}`;
 			  
+			  // 1. 검색이 없을때
+			  if(pageObject.key == '' && pageObject.keyword == ''){
+				  boardcount.innerHTML = `전체 게시물수 : ${r.totalsize}`;
+				  // 2. 검색이 있을때
+			  }else{
+				  boardcount.innerHTML = `검색된 게시물수 : ${r.totalsize}`;
+			  }
 			  
 		},
        	error : e=>{console.log(e)}
      });
 	
 	
-}
+}	// 게시물 출력함수 end
 
 
 
@@ -114,6 +125,12 @@ function onCategory(bcno){
 	console.log('카테고리 번호 : ' + bcno);
 	pageObject.bcno = bcno;
 	console.log('오브젝트 카테고리 번호 :' + pageObject.bcno);
+	
+	// 카테고리 변경시 검색 초기화
+	pageObject.key = '';
+	pageObject.keyword = '';
+	document.querySelector('.cateslc').value = 'b.btitle'
+	document.querySelector('.seachinput').value = '';
 	
 	printBoard(1);
 	
@@ -128,6 +145,23 @@ function onListSize(){
 	
 	printBoard(1);
 	
+}
+
+// 검색 버튼을 클릭했을때
+function onSearch(){
+	
+	// 검색창 분류
+	let cateslc = document.querySelector('.cateslc').value;
+	// 검색값 입력창
+	let seachinput = document.querySelector('.seachinput').value;
+ 	
+ 	pageObject.key = cateslc;
+ 	pageObject.keyword = seachinput;
+ 	
+ 	console.log(pageObject.key)
+ 	console.log(pageObject.keyword)
+ 	
+ 	printBoard(1);
 }
 
 

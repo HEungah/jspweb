@@ -1,5 +1,17 @@
 console.log(loginState);
 
+/* 썸머노트 실행 */
+$(document).ready(function() {
+	
+	let option={
+		lang :'ko-KR',
+		height : 500
+	}
+	
+	
+  $('#summernote').summernote(option);
+});
+
 
 function bwrite(){console.log('write 함수 실행')
 	

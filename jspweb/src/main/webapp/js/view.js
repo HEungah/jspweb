@@ -21,7 +21,10 @@ function printView(){console.log('printVeiw 함수 실행')
        		let viewBox = document.querySelector('.viewBox');
        		let html = ``;
        		
-       		html = 
+       		if(r.bfile == null){
+				  
+			   }
+       		html += 
        		`	<table class="table">
 					<thead>
 						<tr class="table-active">
@@ -37,15 +40,23 @@ function printView(){console.log('printVeiw 함수 실행')
 						<tr>
 							<td><pre>${r.bcontent}</pre></td><td></td>
 						</tr>
-						<tr>
-							<td><img class="bfile" alt="" src="file/${r.bfile}"></td><td></td>
+						<tr>`
+						if(r.bfile == null){
+				  			html += `<td>첨부파일없음</td>`
+			   			}else{
+							html +=
+							`
+							<td>첨부파일 <a href="/jspweb/FileDownLoad?filename=${r.bfile}">${r.bfile}</a></td>
+							`
+			html +=				
+							`
 						</tr>
 					</tbody>
 				</table>
-				
-				
 
        		`
+       		}
+       		
        		let mno = sessionStorage.getItem("loginMno");
        		console.log(mno);
        		if(r.ishost){

@@ -1,5 +1,15 @@
 console.log('update.js 실행');
 
+       		/* 썸머노트 실행 */
+			$(document).ready(function() {
+				let option={
+					lang :'ko-KR',
+					height : 500
+				}
+			  $('#summernote').summernote(option);
+			});
+
+
 // 수정할 게시물 정보 보여주기
 getBoard();
 function getBoard(){
@@ -17,6 +27,8 @@ function getBoard(){
        		document.querySelector('.newbtitle').value = `${r.btitle}`
        		document.querySelector('.newbcontent').value = `${r.bcontent}`
        		document.querySelector('.newbfile').value = `${r.bfile}`
+       	
+       		
        },
        error : e => {}
      });

@@ -38,15 +38,22 @@ public class BoardDao extends Dao{
 	}
 	
 	// 2. 모든 글 출력
-	public ArrayList<BoardDto> printBoard(int bcno,int listSize, int startrow){
+	public ArrayList<BoardDto> printBoard(int bcno,int listSize, int startrow, String key, String keyword){
 		
 		ArrayList<BoardDto> list = new ArrayList<>();
 		
 		String sql = "";
 		
 		try {
+			// 전체출력
 			if(bcno != 0) {
-				sql = "select b.*, m.mid, bc.bcname, m.mimg from board b, member m, bcategory bc where b.bcno = bc.bcno and b.mno = m.mno and b.bcno = ? order by b.bno desc limit ?, ?";
+				sql = "select b.*, m.mid, bc.bcname, m.mimg from board b, member m, bcategory bc where b.bcno = bc.bcno and b.mno = m.mno and b.bcno = ? ";
+				// key와 keyword가 모두 빈문자열이 아니면
+				if(!key.isEmpty() && !keyword.isEmpty()) {
+					sql += "and " + key +" like '%"+keyword+"%'";
+				}
+				
+				sql += "order by b.bno desc limit ?, ?";
 				ps = conn.prepareStatement(sql);
 				ps.setInt(1, bcno);
 				ps.setInt(2, startrow);
@@ -57,9 +64,16 @@ public class BoardDao extends Dao{
 							rs.getString(5), rs.getInt(6), rs.getInt(7), rs.getInt(8), rs.getString(9), rs.getString(10),rs.getString(11));
 					list.add(bDto);
 				}
-				
+			
+				// 카테고리 출력
 			}else {
-				sql = "select b.*, m.mid, bc.bcname, m.mimg from board b, member m, bcategory bc where b.bcno = bc.bcno and b.mno = m.mno order by b.bno desc limit ?, ?";
+				sql = "select b.*, m.mid, bc.bcname, m.mimg from board b, member m, bcategory bc where b.bcno = bc.bcno and b.mno = m.mno ";
+				// key와 keyword가 모두 빈문자열이 아니면
+				if(!key.isEmpty() && !keyword.isEmpty()) {
+					sql += "and " + key +" like '%"+keyword+"%'";
+				}
+				
+				sql += "order by b.bno desc limit ?, ?";
 				ps = conn.prepareStatement(sql);
 				ps.setInt(1, startrow);
 				ps.setInt(2, listSize);
@@ -77,14 +91,28 @@ public class BoardDao extends Dao{
 		return null;
 	}
 	
-	public int getTotalSize(int bcno) {
+	// 페이징 처리
+	public int getTotalSize(int bcno, String key, String keyword) {
 		
 		try {
-			String sql = "select count(*)from board b";
-			// 만악에 전체보기가 아니면[카테고리별 개수]
+			String sql = "select count(*)from board b natural join member m";
+			// 만약에 전체보기가 아니면[카테고리별 개수]
 			if(bcno != 0) {
 				sql += " where b.bcno = " + bcno;
 			}
+			
+			// 만약에 검색을 실행했으면
+			if( !key.isEmpty() && !keyword.isEmpty()) {
+				if(bcno != 0) {
+					sql += " and ";
+				}else {
+					sql += " where ";
+				}
+				sql += key + " like '%"+keyword+"%'";
+			}
+			
+			System.out.println(sql);
+			
 			ps = conn.prepareStatement(sql);
 			rs = ps.executeQuery();
 			if(rs.next()) {

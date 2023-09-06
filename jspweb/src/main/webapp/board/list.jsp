@@ -33,6 +33,7 @@
 					<option>10</option>
 					<option>15</option>
 					<option>20</option>
+					<option>3</option>
 				</select>
 				<span class="boardcount"></span>
 			</div>
@@ -46,12 +47,12 @@
 		</div>
 		
 		<table class="table caption-top">
-			<caption class="tableCaption">글 목록 페이지</caption>
+			<caption class="tableCaption">글 목록</caption>
 		  <thead class="tableHead table-info">
 		    <tr>
 		      <th scope="col" >게시물번호</th>
 		      <th scope="col" >카테고리</th>
-		      <th scope="col">제목</th>
+		      <th scope="col" class="titleSize">제목</th>
 		      <th scope="col">작성자</th>
 		      <th scope="col">작성일</th>
 		      <th scope="col">조회수</th>
@@ -69,12 +70,13 @@
 			<!-- 검색 구역 -->
 			<div class="inputBox">
 				<select class="form-select cateslc">	<!-- 검색 키워드 -->
-					<option> 제목 </option>
-					<option> 내용 </option>
-					<option> 작성자 </option>
+					<!-- value는 sql에서 사용할 필드명 기준 -->
+					<option value="b.btitle"> 제목 </option>
+					<option value="b.bcontent"> 내용 </option>
+					<option value="m.mid"> 작성자 </option>
 				</select>
 				<input class="form-control seachinput" type="text">	<!-- 검색내용 -->
-				<button class="btn btn-primary btn-sm" type="button"> 검색 </button>
+				<button onclick="onSearch()" class="btn btn-primary btn-sm" type="button"> 검색 </button>
 			</div>
 		</div>
 	</div>

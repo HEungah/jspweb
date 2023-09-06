@@ -13,6 +13,7 @@
       integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx"
       crossorigin="anonymous"
      />
+     <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.20/summernote-lite.min.css" rel="stylesheet">
 </head>
 <body>
 
@@ -31,9 +32,8 @@
 				<label for="basic-url" class="form-label"> 제목 </label>
   				<input type="text" class="form-control newbtitle" name="newbtitle" placeholder="제목" aria-label="제목" aria-describedby="basic-addon2">
 			</div>
-			<div class="input-group">
-  				<span class="input-group-text"> 내용 </span>
-  				<textarea class="form-control newbcontent" name="newbcontent" aria-label="With textarea"></textarea>
+			<div class="contentInput">
+  				<textarea id="summernote" class="newbcontent" name="newbcontent" aria-label="With textarea"></textarea>
 			</div>
 			<div class="mb-3">
   				<label class="form-label">첨부파일</label>
@@ -53,6 +53,12 @@
       integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"
       crossorigin="anonymous"
     ></script>
+    
+    <!-- 썸머노트 js 적용 -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.20/summernote-lite.min.js"></script>
+	
+	<!-- 썸머노트 한글적용 -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.20/lang/summernote-ko-KR.min.js"></script>
 	
 	<script type="text/javascript" src="../js/update.js"></script>
 

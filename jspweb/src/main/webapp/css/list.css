@@ -41,8 +41,15 @@
 	margin: 10px 0px;
 }
 
+/* 게시판 제목구역 */
+.titleSize{
+	width: 40%;
+}
+
+/* 게시물 갯수 텍스트 */
 .boardcount{
 	margin-left: 20px;
+	margin-right: 10px;
 }
 
 .boardBottom{
