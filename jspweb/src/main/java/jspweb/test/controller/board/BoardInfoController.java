@@ -192,11 +192,18 @@ public class BoardInfoController extends HttpServlet {
     	String bfile = multi.getFilesystemName("newbfile");
     	
     	BoardDto boardDto = new BoardDto(bno, btitle, bcontent, bfile, mno, bcno);
-    	System.out.println("Dto" + boardDto);
     	
-    	// 수정한 파일이 없으면
+    	// 만약 수정할 첨부파일이 없으면 기존 첨부파일 그대로 사용
     	if(boardDto.getBfile() == null) {
+    		// 기존첨부파일 호출해서 수정 dto에 저장하기
+    		boardDto.setBfile(
+    					BoardDao.getInstance().printPBoard(bno).getBfile()
+    				);
+    	}else {		// 만약 수정할 첨부파일 있으면 기존 첨부파일은 서버업로드폴더에서 삭제
     		
+    		String filename = BoardDao.getInstance().printPBoard(bno).getBfile();
+    		filename = request.getServletContext().getRealPath("/board/file")+"/"+filename;
+			FileService.fileDelete(filename);
     	}
     	
 		boolean result = BoardDao.getInstance().updateVeiw(boardDto);
