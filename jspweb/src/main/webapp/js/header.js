@@ -2,6 +2,7 @@ console.log('header.js 실행');
 
 // 1. 현재 로그인된 회원정보 요청
 let loginState = false;		// 로그인 스위치
+let loginMId = ' ';	// 로그인 성공된 아이디를 가지고 있는 변수
 
 getMembertInfo();
 
@@ -12,20 +13,22 @@ function getMembertInfo(){
        url : "/jspweb/MemberInfoController",
        data : {type : "info"},         // 보내는 데이터
        method : "get",
+       async :	false,		/*동기화, 비동기화(기본값[ true ]) 설정하는 속성*/
         success : r =>{console.log(r)
         
         	let submenu = document.querySelector('.submenu')
         	let html = ``;
         
         	if(r == null){	// 비로그인 상태
-        		loginState = false;
+        		loginState = false;	loginMId = ' ';
 				html += 
 				`
 					<li><a href="/jspweb/member/signup.jsp">회원가입</a></li>
 					<li><a href="/jspweb/member/login.jsp">로그인</a></li>
 				`
 			}else{	// 로그인상태
-				loginState = true;
+				loginState = true;	loginMId = r.mid;
+				console.log(loginState)
 				sessionStorage.setItem("loginMno", r.mno);
 				if(r.mid == "admin"){/*관리자로그인상태*/}
 				

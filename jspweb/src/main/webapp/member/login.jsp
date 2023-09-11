@@ -20,7 +20,7 @@
 			<form class="signupForm">
 				<div class="group">
 					<label for="user" class="label">아이디</label>
-					<input name="mid" class="mid" type="text"/>
+					<input name="mid" class="mid" type="text" autofocus/>
 				</div>
 				<div class="group">
 					<label for="pass" class="label">비밀번호</label>

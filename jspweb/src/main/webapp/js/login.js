@@ -1,5 +1,11 @@
 console.log('login.js실행')
 
+document.addEventListener("keyup", function(event) {
+    if (event.code === 'Enter' || event.code === 'NumpadEnter') {
+        login();
+    }
+});
+
 
 function login(){
 	// 1. 입력받은 아이디, 비밀번호 가져옴
