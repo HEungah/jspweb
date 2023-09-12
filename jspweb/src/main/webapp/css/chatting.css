@@ -88,6 +88,7 @@
 	padding: 10px;
 	border-radius: 5px;
 	margin-left: 5px;
+	word-break: break-all;
 }
 
 .date{
@@ -109,6 +110,24 @@
 	padding: 5px;
 }
 
+
+/* 이모지 css */
+.dropdown .emobtn{
+	font-size: 20px;	/* 폰트어썸 이모지 크기 */
+	background-color: transparent;		/* 투명색 */
+	border: none;
+	margin: 5px 20px;
+}
+
+.dropdown .emolistbox{
+	width: 300px;	height: 300px;
+	overflow-y: scroll;
+}
+
+.dropdown .emolistbox img{
+	width: 60px;
+	cursor: pointer;
+}
 
 
 

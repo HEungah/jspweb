@@ -59,6 +59,9 @@ public class ServerSocket {
 	@OnMessage	// 매개변수 : 1. 메시지를 보낸 클라이언트소켓(세션), 2. 메시지 내용[문자열]
 	public void onMessage(Session session, String msg) throws IOException {
 		
+		System.out.println(msg);
+		String modMsg = msg.replace("\n", "<br>");
+		
 		System.out.println("보낸 클라이언트 : " + session + "		보낸 내용 : " + msg);
 		
 			// 2-2 메시지를 보낼 내용 구성[ 보낸사람, 보낸내용 ]

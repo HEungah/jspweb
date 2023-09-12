@@ -7,6 +7,8 @@
 <title>Insert title here</title>
 
 	<link href="/jspweb/css/chatting.css" rel="stylesheet">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.14.0/css/all.css">
 </head>
 <body>
 
@@ -21,11 +23,20 @@
 			</div>
 			<!-- 채팅입력창, 전송버튼 -->
 			<div class="chatbottom">
-				<textarea class="msg" autofocus></textarea>
+				<textarea onkeydown="onEnterKey()" class="msg" name="msg"></textarea>
 				<button onclick="onSend()" type="button">전송</button>
 			</div>
 			
-		
+			<!-- 이모팈톤, 첨부파일 구역 -->
+			<div class="dropdown">
+			  <button class="emobtn" type="button" data-bs-toggle="dropdown">
+			    <i class="far fa-smile"></i>
+			  </button>
+			  <ul class="dropdown-menu emolistbox">
+			 
+			  </ul>
+			</div>
+			
 		</div>
 		
 		
@@ -33,7 +44,7 @@
 	</div>
 
 
-
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
 	<script type="text/javascript" src="/jspweb/js/chatting.js"></script>
 
 </body>

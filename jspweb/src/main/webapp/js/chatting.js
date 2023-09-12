@@ -1,10 +1,4 @@
-// 엔터키 감지
-document.addEventListener("keydown", function(event) {
-	if (event.isComposing || event.keyCode === 229) return;
-    if (event.code === 'Enter' || event.code === 'NumpadEnter') {
-        onSend();
-    }
-});
+
 
 
 /*
@@ -94,7 +88,6 @@ function onmsg(e){
 // 1. 비 로그인 시 입장 불가능
 console.log(loginState)
 if(loginState == false){alert('회원전용 페이지입니다.'); location.href="/jspweb/member/login.jsp";}
-console.log('채팅방에 입장한 아이디 : ' + loginMId)
 
 // 2. JS 클라이언트[유저] 소켓 만들기
 /*
@@ -133,7 +126,17 @@ let clientSocket = new WebSocket(`ws://localhost:80/jspweb/serversocket/${loginM
 	// 서버소켓URL에 매개변수 전달하기(주로 식별자 전달) ---> 서버소켓URL/데이터1/데이터2/데이터3...
 	// 메소드 4가지(자동실행)
 		// 1. - 클라이언트소켓이 정상적으로 서버소켓에 접속했을때
-	clientSocket.onopen = e=>{console.log('서버와 연결됨 ' + e)};
+	clientSocket.onopen = e=>{
+		// 만약에 접속을 성공하면 알림메시지 전송
+		console.log('채팅방 입장' + loginMId)
+		let msg = {
+			type : 'alram', 
+			content : `${loginMId}님이 입장하셨습니다.`
+		}
+		// JSON 문자로 변환하여 보내야한다.
+		clientSocket.send(JSON.stringify(msg));
+		
+	};
 		// 2. - 클라이언트소켓이 서버소켓과 연결에서 오류가 발생했을때
 	clientSocket.onerror = e=>{console.log('서버와 오류발생 ' + e)};
 		// 3. - 클라이언트소켓이 서버소켓과 연결이 끊겼을때
@@ -151,44 +154,61 @@ let clientSocket = new WebSocket(`ws://localhost:80/jspweb/serversocket/${loginM
 // 전송버튼 클릭또는 엔터키 입력시 실행되는 함수
 function onSend(){	console.log('전송함수')
 	// 3-1 입력값 호출
-	let msg =  document.querySelector('.msg').value;
-	if(msg == ''){alert('내용을 입력해주세요.'); return;}
+	let msgvalue =  document.querySelector('.msg').value;
+	if(msgvalue == '' || msgvalue == '\n'){alert('내용을 입력해주세요.'); return;}
+	
+	let msg = {type : 'message', content : msgvalue}
+	
 	// 3-2 메시지 전송
-	clientSocket.send(msg);	// 클라이언트소켓과 연결된 서버소켓에게 메시지 전송	---> 서버소켓의 OnMessage로 이동
+	clientSocket.send(JSON.stringify(msg));	// 클라이언트소켓과 연결된 서버소켓에게 메시지 전송	---> 서버소켓의 OnMessage로 이동
+	// 메시지 전송시 입력상자 초기화
 	document.querySelector('.msg').value = ``;
 }
 
 // 4. 메시지를 받았을때,
 function onMsg(e){
-	console.log(e);		// e : 메시지 받았을때 발생한 이벤트 정보가 들어있는 객체
+	console.log(e.data);		// e : 메시지 받았을때 발생한 이벤트 정보가 들어있는 객체
 	
 	let msg = JSON.parse(e.data);
 		// JSON.parse() : 문자열타입의 JSON형식을 JSON타입으로 변환
 		// JSON.stringify() : JSON타입을 문자열 타입으로 변환(JSON형식으로)
 	console.log(msg);
+	
+	msg.msg = JSON.parse(msg.msg)
+	console.log(msg.msg)
+	
+	msg.msg.content = msg.msg.content.replace(/\n/g,'<br>');
+	
+	// 2. 특정 문자열 찾아서 찾은 문자열 모두 바꾸기/치환 --> java : replaceAll();	js : 정규표현식
+	//content = msg.msg.replace(/\n/g,'<br>');	// g : 글로벌(전체색인)
+	
 	let chatcont = document.querySelector('.chatcont')
 	let html = ``;
-	
+	// 만약 알림 메시지 이면
+	console.log(msg.msg.type)
+	if(msg.msg.type == 'alram'){
+		html = `${typeHTML(msg.msg)}`;
+	}
+	// 만약 일반 메시지이면
 	// 출력할 것
 		// 만약 로그인한 사람이 보낸 채팅이면
-		console.log(msg.fromMid);
-		if(msg.fromMid == loginMId){
+		else if(msg.frommid == loginMId){
 			html += `
 								<div class="rcont">
 									<div class="subcont">
-										<div class="date">오전 10:02</div>
-										<div class="content">${msg.msg}</div>
+										<div class="date">${msg.date}</div>
+										${typeHTML(msg.msg)}
 									</div>
 								</div>`;
 		}else{
 			html += `
 							<div class="lcont">
-								<img class="pimg" src="/jspweb/member/img/default.webp"/>
+								<img class="pimg" src="/jspweb/member/img/${msg.frommimg}"/>
 								<div class="tocont">
-									<div class="name">${msg.fromMid}</div>
+									<div class="name">${msg.frommid}</div>
 									<div class="subcont">
-										<div class="content">${msg.msg}</div>
-										<div class="date">오전 10: 10</div>
+										${typeHTML(msg.msg)}
+										<div class="date">${msg.date}</div>
 									</div>
 								</div>
 							</div>
@@ -197,9 +217,73 @@ function onMsg(e){
 	
 	// 누적 대입[기존 채팅이 존재해야함]
 	chatcont.innerHTML += html;
+	
+	// 스크롤 최하단으로 내리기 [ 스크롤 이벤트 ]
+	// 1. 현재 스크롤의 상단 위치 좌표
+	//let topHeight = chatcont.scrollTop;	// DOM객체.scrollTop -> 해당 div의 상단위치
+	// 2. 현재 dom객체의 전체 높이
+	//let scrollHeight = chatcont.scrollHeight;	// DOM객체.scrollHeight -> 해당 div의 스크롤 전체 높이
+	// 3. 전체 높이 값을 현재 스크롤 상단 위치에 대입
+	chatcont.scrollTop = chatcont.scrollHeight;
 }
 
+// 5. 엔터키로 채팅 입력
+function onEnterKey(){
+	
+	// 만약에 입력한 키가 [엔터] 이면 메시지 전송
+	if(window.event.keyCode == 13 && window.event.ctrlKey){
+		document.querySelector('.msg').value += `\n`; return;
+	}
+	if(window.event.keyCode == 13){
+		onSend(); return;
+	}
+}
 
+// 6. 이모티콘 출력하기
+getEmo();
+function getEmo(){
+	let emolistbox = document.querySelector('.emolistbox');
+	
+	for(let i = 1; i <= 43; i++){
+		emolistbox.innerHTML += `<img onclick="onEmoSend(${i})" src="/jspweb/img/emo${i}.gif"/>`
+	}
+	
+}
+
+// 7. 클릭한 이모티콘 서버로 보내기
+function onEmoSend(i){
+	
+	let msg = {type : 'emo', content : i+""}
+		// type : msg[메시지], emo[이모티콘], img[사진]
+		// content : 내용물
+		
+	// 보내기
+	clientSocket.send(JSON.stringify(msg));
+	
+}
+
+// 8. msg 타입에 따른 HTML 반환 함수
+function typeHTML(msg){
+	
+	let html = ``;
+	
+	// 1. 메시지 타입 일때는 <div> 반환
+	if(msg.type == 'message'){
+		html += `<div class="content">${msg.content}</div>`;
+	}
+	
+	// 2. 이모티콘 타입 일때는 <img> 반환
+	else if(msg.type == 'emo'){
+		html += `<img src="/jspweb/img/emo${msg.content}.gif"/>`;
+	}
+	// 3. 만약 알람 타입일때는 <div> 반환
+	else if(msg.type == 'alram'){
+		html += `<div class="alram">${msg.content}</div>`
+	}
+	
+	return html;
+	
+}
 
 
 
