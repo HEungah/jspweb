@@ -41,6 +41,21 @@ public class ProductDto {
 		this.imgList = imgList;
 		this.mid = mid;
 	}
+	
+	// 제품 등록시 생성자
+	
+	public ProductDto(int pcno, String pname, String pcontent, int pprice, String plat, String plng, int mno,
+			Map<Integer, String> imgList) {
+		super();
+		this.pcno = pcno;
+		this.pname = pname;
+		this.pcontent = pcontent;
+		this.pprice = pprice;
+		this.plat = plat;
+		this.plng = plng;
+		this.mno = mno;
+		this.imgList = imgList;
+	}
 
 	public int getPcno() {
 		return pcno;

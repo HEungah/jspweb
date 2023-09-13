@@ -29,7 +29,9 @@
 			제품설명 : <textarea name="pcontent"></textarea> <br/>
 			제품가격 : <input name="pprice" type="number"> <br/>
 			<!-- 제품이미지 : <input type="file"> <br/>  이미지 한개일 때 -->
+			<!-- commons.jar 라이브러리 사용 -->
 			제품이미지 : <input name="pimg" type="file" multiple="mlutiple"> <br/>
+			
 			
 			<button onclick="onRegister()" type="button">등록</button>
 		</form>
