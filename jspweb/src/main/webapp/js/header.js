@@ -14,7 +14,7 @@ function getMembertInfo(){
        data : {type : "info"},         // 보내는 데이터
        method : "get",
        async :	false,		/*동기화, 비동기화(기본값[ true ]) 설정하는 속성*/
-        success : r =>{console.log(r)
+        success : r =>{
         
         	let submenu = document.querySelector('.submenu')
         	let html = ``;
