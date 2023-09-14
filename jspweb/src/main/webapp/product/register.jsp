@@ -30,8 +30,13 @@
 			제품가격 : <input name="pprice" type="number"> <br/>
 			<!-- 제품이미지 : <input type="file"> <br/>  이미지 한개일 때 -->
 			<!-- commons.jar 라이브러리 사용 -->
-			제품이미지 : <input name="pimg" type="file" multiple="mlutiple"> <br/>
+			<!-- 제품이미지 : <input name="pimg" type="file" multiple="mlutiple"> <br/> -->
 			
+			<!-- 드래그앤드랍으로 이미지 올리기 -->
+			<div class="fileDropBox" style="width: 300px; height:150px; border:1px solid red">
+				여기에 드래그해서 파일을 올려주세요.
+				
+			</div>
 			
 			<button onclick="onRegister()" type="button">등록</button>
 		</form>
