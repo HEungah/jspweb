@@ -28,6 +28,8 @@
 			제품명 :	<input name="pname" type="text"> <br/>
 			제품설명 : <textarea name="pcontent"></textarea> <br/>
 			제품가격 : <input name="pprice" type="number"> <br/>
+			제품장소 : <div id="map" style="width:100%;height:350px;"></div>
+			<div id="clickLatlng"></div>
 			<!-- 제품이미지 : <input type="file"> <br/>  이미지 한개일 때 -->
 			<!-- commons.jar 라이브러리 사용 -->
 			<!-- 제품이미지 : <input name="pimg" type="file" multiple="mlutiple"> <br/> -->
@@ -42,6 +44,8 @@
 		</form>
 		
 	</div>
+	
+	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=73ca70f86f8163f74e44da0971a2f8b5"></script>
 	
 	<script type="text/javascript" src="/jspweb/js/product/register.js"></script>
 

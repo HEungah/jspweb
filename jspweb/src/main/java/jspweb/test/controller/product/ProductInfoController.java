@@ -22,6 +22,8 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
+import jspweb.test.model.dao.ProductDao;
+import jspweb.test.model.dto.MemberDto;
 import jspweb.test.model.dto.ProductDto;
 
 @WebServlet("/ProductInfoController")
@@ -90,18 +92,28 @@ public class ProductInfoController extends HttpServlet {
 					imgList.put(i, item.getName());
 				}
 			}
+			// 회원번호	(서블릿 세션 활용)
+			Object object = request.getSession().getAttribute("loginDto");
+			MemberDto memberDto = (MemberDto)object;
+			int mno = memberDto.getMno();
 			
 			ProductDto productDto = new ProductDto(
 					Integer.parseInt(fileList.get(0).getString()),
 					fileList.get(1).getString(),
 					fileList.get(2).getString(),
 					Integer.parseInt(fileList.get(3).getString()),
-					null,
-					null, 
-					0,
+					fileList.get(4).getString(),
+					fileList.get(5).getString(), 
+					mno,
 					imgList
 					);
 			System.out.println(productDto);
+			
+			boolean result = ProductDao.getInstance().register(productDto);
+			System.out.println(result);
+			
+			response.setContentType("application/json;charset=utf-8");
+			response.getWriter().print(result);
 			
 		} catch (Exception e) {System.out.println(e);}
     	

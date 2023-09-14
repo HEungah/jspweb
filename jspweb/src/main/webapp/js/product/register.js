@@ -1,4 +1,73 @@
 console.log('제품등록스크립트 실행')
+
+// 제품등록은 회원제
+if(loginState == false){
+	alert('로그인후 사용가능합니다.')
+	location.href="/jspweb/member/login.jsp";
+}
+
+// 카카오 지도 표시
+// 현재 접속한 클라이언트[브라우저]의 위치 자표 구하기
+navigator.geolocation.getCurrentPosition(e => {
+	
+	console.log(e.coords.latitude);
+	console.log(e.coords.longitude);
+	let currentlat = e.coords.latitude;		// 위도
+	let currentlon = e.coords.longitude;	// 겨옫
+	
+	var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+	    mapOption = { 
+	        center: new kakao.maps.LatLng(currentlat, currentlon), // 지도의 중심좌표
+	        level: 3 // 지도의 확대 레벨
+	    };
+	
+	var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+	
+	// 지도를 클릭한 위치에 표출할 마커입니다
+	var marker = new kakao.maps.Marker({ 
+	    // 지도 중심좌표에 마커를 생성합니다 
+	    position: map.getCenter() 
+	}); 
+	// 지도에 마커를 표시합니다
+	marker.setMap(map);
+	
+	// 지도에 클릭 이벤트를 등록합니다
+	// 지도를 클릭하면 마지막 파라미터로 넘어온 함수를 호출합니다
+	kakao.maps.event.addListener(map, 'click', function(mouseEvent) {        
+	    
+	    // 클릭한 위도, 경도 정보를 가져옵니다 
+	    var latlng = mouseEvent.latLng; 
+	    
+	    // 마커 위치를 클릭한 위치로 옮깁니다
+	    marker.setPosition(latlng);
+	    
+	    var message = '클릭한 위치의 위도는 ' + latlng.getLat() + ' 이고, ';
+	    message += '경도는 ' + latlng.getLng() + ' 입니다';
+	    
+	    var resultDiv = document.getElementById('clickLatlng'); 
+	    resultDiv.innerHTML = message;
+	    
+	    현재위도 = latlng.getLat()
+	    현재경도 = latlng.getLng()
+	    
+	});
+})	// getCurrentPosition end
+
+// 현재 카카오지도에서 선택한 좌표
+let 현재위도 = 0;		
+let 현재경도 = 0;
+
+
+
+
+
+
+
+
+
+
+
+
 /*
 function register(){
 	
@@ -32,6 +101,12 @@ function onRegister(){
 	let formData = new FormData(registerForm);
 	console.log(formData)
 	
+		// *** 카카오지도에서 선택된 좌표를 사용했을때
+		if(현재경도 == 0 || 현재위도 == 0){alert('제품위치를 선택해주세요.'); return;}
+		formData.set('plat', 현재위도);
+		formData.set('plng', 현재경도);
+		
+	
 		// *** 드래그앤드랍을 사용했을때
 			// 현재 드랍된 파일들을 form에 같이 추가해서 전송해야함(드래그된 파일들은 input태그가 아니기때문)
 			
@@ -52,7 +127,9 @@ function onRegister(){
        contentType : false,
        processData : false,
        success : r => {console.log(r)
-       		
+       		if(r){
+				   location.href = "/jspweb/index.jsp";
+			   }
 			
 			
 		},
@@ -142,6 +219,9 @@ function fileDelete(i){
 	fileList.splice(i, 1);
 	fileListPrint();
 }
+
+
+
 
 
 

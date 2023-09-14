@@ -3,6 +3,7 @@ console.log('header.js 실행');
 // 1. 현재 로그인된 회원정보 요청
 let loginState = false;		// 로그인 스위치
 let loginMId = ' ';	// 로그인 성공된 아이디를 가지고 있는 변수
+let loginMno = ' ';	// 로그인 성공된 회원번호를 가지고 있는 변수
 
 getMembertInfo();
 
@@ -27,7 +28,7 @@ function getMembertInfo(){
 					<li><a href="/jspweb/member/login.jsp">로그인</a></li>
 				`
 			}else{	// 로그인상태
-				loginState = true;	loginMId = r.mid;
+				loginState = true;	loginMId = r.mid; loginMno = r.mno;
 				console.log(loginState)
 				sessionStorage.setItem("loginMno", r.mno);
 				if(r.mid == "admin"){/*관리자로그인상태*/}
