@@ -1,6 +1,8 @@
 package jspweb.test.model.dao;
 
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 import jspweb.test.model.dto.ProductDto;
 
@@ -57,8 +59,33 @@ public class ProductDao extends Dao{
 	}
 	
 	// 2. 제품 전체 출력
+	public List<ProductDto> findByTop(int limit){
+		
+		return null;
+	}
+	
+	// 2. 제품 전체 출력
+	public List<ProductDto> findByLatLng(String east, String west, String south, String north){
+			
+		return null;
+	}
 	
 	// 3. 제품 개별 조회
+	public ProductDto findByPno(int pno) {
+		
+		return null;
+	}
+	
+	// 관리자용 제품 출력
+	public List<ProductDto> findByAll(){
+		
+		return null;
+	}
+	// 페이징 처리
+	public int getTotalSize() {
+		return 0;
+	}
+	
 	
 	// 4. 제품 수정
 	
