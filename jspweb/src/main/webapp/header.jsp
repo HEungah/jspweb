@@ -26,6 +26,7 @@
 			<li><a href="/jspweb/accountbook/accountbook.jsp">가계부</a></li>
 			<li><a href="#">열람실</a></li>
 			<li><a href="/jspweb/product/register.jsp">제품등록</a></li>
+			<li><a href="/jspweb/product/list.jsp">제품찾기</a></li>
 			<li><a href="/jspweb/hrm/hrm.jsp">인사관리</a></li>
 		</ul>
 		<!-- 서브메뉴 -->

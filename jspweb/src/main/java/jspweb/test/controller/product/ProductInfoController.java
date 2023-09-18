@@ -93,7 +93,7 @@ public class ProductInfoController extends HttpServlet {
 					
 					// 7. 업로드 된 파일명을 Map에 저장[db저장용]
 					i++;
-					imgList.put(i, item.getName());
+					imgList.put(i, filename);
 				}
 			}
 			// 회원번호	(서블릿 세션 활용)

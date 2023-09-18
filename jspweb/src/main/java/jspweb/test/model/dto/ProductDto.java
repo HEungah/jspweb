@@ -24,7 +24,7 @@ public class ProductDto {
     public ProductDto() {}
 
 	public ProductDto(int pcno, String pcname, int pno, String pname, String pcontent, int pprice, int pstate,
-			String pdate, String plat, String plng, int mno, int pimgno, Map<Integer, String> imgList, String mid) {
+			String pdate, String plat, String plng, int mno, Map<Integer, String> imgList, String mid) {
 		super();
 		this.pcno = pcno;
 		this.pcname = pcname;
@@ -37,7 +37,6 @@ public class ProductDto {
 		this.plat = plat;
 		this.plng = plng;
 		this.mno = mno;
-		this.pimgno = pimgno;
 		this.imgList = imgList;
 		this.mid = mid;
 	}
