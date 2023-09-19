@@ -110,6 +110,7 @@ public class ProductDao extends Dao{
 			ps.setString(1, east); ps.setString(2, west);
 			ps.setString(3, south); ps.setString(4, north);
 			rs = ps.executeQuery();
+			System.out.println(sql);
 			while(rs.next()) {
 				list.add(findByPno(rs.getInt("pno")));
 			}

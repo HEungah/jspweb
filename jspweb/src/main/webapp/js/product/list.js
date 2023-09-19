@@ -9,8 +9,8 @@ var mapContainer = document.getElementById('map'), // 지도를 표시할 div
 
 // 지도를 표시할 div와  지도 옵션으로  지도를 생성합니다
 var map = new kakao.maps.Map(document.getElementById('map'), { // 지도를 표시할 div
-        center : new kakao.maps.LatLng(36.2683, 127.6358), // 지도의 중심좌표
-        level : 14 // 지도의 확대 레벨
+        center : new kakao.maps.LatLng(37.30981653823684, 126.82096706769), // 지도의 중심좌표
+        level : 10 // 지도의 확대 레벨
     });
 
 
@@ -87,8 +87,9 @@ function findByLatLng(east, west, south, north){
        data : {type : 'findByLatLng', east : east, west : west,
        	south: south, north : north},         // 보내는 데이터
        method : "get",
-        success : jsonArray =>{console.log(jsonArray);	
+        success : jsonArray =>{console.log(jsonArray);		
 			
+			// -- 1. 마커 생성후 클러스터에 저장
 			var markers = jsonArray.map((p)=> {
 		        return new kakao.maps.Marker({
 		            position : new kakao.maps.LatLng(p.plat, p.plng)
@@ -96,6 +97,37 @@ function findByLatLng(east, west, south, north){
 		    });
 		    // 클러스터러에 마커들을 추가합니다
 		    clusterer.addMarkers(markers);
+		    
+		    // -- 2. 사이드바에 제품 출력
+		   	let sidebar = document.querySelector('.sidebar');
+		   	let html = ``;
+		   	
+		   	jsonArray.forEach((p)=>{
+				   html += 
+				   `
+				   					<div class="card mb-3" style="max-width: 540px;">
+									  <div class="row g-0 cardbox">	<!-- g-0 : 기본간격 제거 -->
+									    <div class="col-md-5">	<!-- 구역마다 12개의 col이존재(그중에 4개를 사용) -->
+									    <a href="/jspweb/product/view.jsp?pno=${p.pno}">
+									      <img src="/jspweb/product/img/${Object.values(p.imgList)[0]}" class="img-fluid rounded-start cardImg">
+									     </a>
+									    </div>
+									    <div class="col-md-7">
+									      <div class="card-body">
+									        <h5 class="card-title">${p.pname}</h5>
+									        <p class="card-text">
+									        	<div>${p.pcontent}</div>
+									        	<div class="priceText">${p.pprice.toLocaleString()} 원</div>
+									        </p>
+									      </div>
+									    </div>
+									  </div>
+									</div>
+				   `
+				   
+			   })
+			   sidebar.innerHTML = html;
+		    
 		},
         error : e =>{}
      });
