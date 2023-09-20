@@ -48,6 +48,53 @@ function findByPno(pno){
 	
 }
 
+/*loginState, loginMno*/
+
+
+// 2. 찜하기 기능 함수[회원제]
+function setWish(){console.log('찜하기 함수 실행')
+	
+	// 회원제 유효성 처리
+	if(loginState == false){
+		alert('로그인이후 가능한 기능입니다.');
+		return;
+	}
+	
+	$.ajax({
+		url : "/jspweb/PwishListController",
+		async : false,	// 동기화
+		method : "post",
+		data : {pno : pno},
+		success : result =>{console.log(result);
+			if(result){getWish();}
+			else{}
+		}
+		
+	});	// ajax end
+		
+}
+
+// 3. 찜하기 상태 호출
+getWish();
+function getWish(){
+	let wish = document.querySelector('.wish');
+	
+	// 1. 비회원이면
+	if(loginState == false){
+		wish.innerHTML = '♡';
+	}
+	
+	$.ajax({
+		url : "/jspweb/PwishListController",
+		method : "get",
+		data : {type: "findByWish", pno : pno},
+		success : result =>{console.log(result);
+			if(result){wish.innerHTML = '♥';}
+			else{wish.innerHTML = '♡';}
+		}
+	});
+}
+
 
 
 
